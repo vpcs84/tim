@@ -4,6 +4,7 @@
   "description": "Addon do Stremio para LIVE TV",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.19.2",
     "stremio-addon-sdk": "^1.6.0"
   }
 }
