@@ -1,3 +1,4 @@
+const express = require("express");
 const { addonBuilder, getRouter } = require("stremio-addon-sdk");
 
 const channelsData = [
@@ -112,12 +113,16 @@ builder.defineStreamHandler(({ type, id }) => {
   return Promise.resolve({ streams: [] });
 });
 
+const app = express();
 const addonInterface = builder.getInterface();
-const router = getRouter(addonInterface);
+const addonRouter = getRouter(addonInterface);
 
-module.exports = (req, res) => {
-  router(req, res, () => {
-    res.statusCode = 404;
-    res.end();
-  });
-};
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
+});
+
+app.use("/", addonRouter);
+
+module.exports = app;
