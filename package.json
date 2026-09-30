@@ -2,7 +2,10 @@
   "name": "stremio-timst-live-tv",
   "version": "1.0.0",
   "description": "Addon do Stremio para LIVE TV",
-  "main": "index.js",
+  "main": "api/index.js",
+  "scripts": {
+    "start": "node api/index.js"
+  },
   "dependencies": {
     "express": "^4.19.2",
     "stremio-addon-sdk": "^1.6.0"
