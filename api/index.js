@@ -40,7 +40,7 @@ const customChannelMeta = {
     genres: ["Entertainment"]
   },
   "bbc-america": {
-    logo: "https://www.newscaststudio.com/wp-content/uploads/2024/11/bbc-america-logo.jpg",
+    logo: "https://veja.abril.com.br/wp-content/uploads/2016/11/bbc-america.jpg",
     genres: ["Entertainment"]
   },
   "bbc-one-london": {
@@ -68,7 +68,7 @@ const customChannelMeta = {
     genres: ["Sports"]
   },
   "big-ten-network": {
-    logo: "https://barrettmedia.com/wp-content/uploads/2024/07/Big-Ten-Network-BTN-Logo.jpg",
+    logo: "https://bigten.org/common/controls/image_handler.aspx?thumb_id=0&image_path=/images/2026/8/11/BTN.jpg",
     genres: ["Sports"]
   },
   "boomerang": {
