@@ -248,11 +248,11 @@ const customChannelMeta = {
     genres: ["Entertainment"]
   },
   "fox-sports-1": {
-    logo: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/2015_Fox_Sports_1_logo.svg/500px-2015_Fox_Sports_1_logo.svg.png?utm_source=pt.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    logo: "https://www.autoracing1.com/wp-content/uploads/logos/fox-sports-fs1-logo.jpg",
     genres: ["Sports"]
   },
   "fox-sports-2": {
-    logo: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/FS2_logo_2015.svg/500px-FS2_logo_2015.svg.png?utm_source=pt.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
+    logo: "https://images.seeklogo.com/logo-png/36/1/fox-sports-2-logo-png_seeklogo-369602.png",
     genres: ["Sports"]
   },
   "fox-sports-501-cricket": {
@@ -288,7 +288,7 @@ const customChannelMeta = {
     genres: ["Entertainment"]
   },
   "fxm": {
-    logo: "https://www.awn.com/sites/default/files/styles/original/public/image/featured/50716-buster-creates-brand-id-new-fxm-programming-block_0.jpg",
+    logo: "https://ygo-assets-entities-us.yougov.net/817b25d9-af2d-11e7-bb98-5f64ef68aa44.jpg",
     genres: ["Entertainment"]
   },
   "fxx": {
