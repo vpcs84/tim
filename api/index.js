@@ -248,11 +248,11 @@ const customChannelMeta = {
     genres: ["Entertainment"]
   },
   "fox-sports-1": {
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/2015_Fox_Sports_1_logo.svg/1280px-2015_Fox_Sports_1_logo.svg.png",
+    logo: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/2015_Fox_Sports_1_logo.svg/500px-2015_Fox_Sports_1_logo.svg.png?utm_source=pt.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
     genres: ["Sports"]
   },
   "fox-sports-2": {
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/FS2_logo_2015.svg/1280px-FS2_logo_2015.svg.png",
+    logo: "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/FS2_logo_2015.svg/500px-FS2_logo_2015.svg.png?utm_source=pt.wikipedia.org&utm_campaign=parser&utm_content=thumbnail",
     genres: ["Sports"]
   },
   "fox-sports-501-cricket": {
