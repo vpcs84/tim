@@ -1,7 +1,50 @@
 const express = require("express");
 const { addonBuilder, getRouter } = require("stremio-addon-sdk");
 
-const channelsData = [
+// 1. Função auxiliar para formatar os nomes dos canais
+function formatName(slug) {
+  return slug
+    .split("-")
+    .map((word) => word.toUpperCase())
+    .join(" ");
+}
+
+// 2. Metadados personalizados e URLs diretas para canais específicos
+const customChannelMeta = {
+  "abc": {
+    poster: "https://cdn.abcotvs.com/dip/images/11479454_011822-cc-abc-generic-thumb-img.jpg",
+    logo: "https://cdn.abcotvs.com/dip/images/11479454_011822-cc-abc-generic-thumb-img.jpg",
+    genres: ["Entertainment"],
+    streamUrl: "https://seu-servidor.com/live/abc.m3u8"
+  },
+  "acc-network": {
+    poster: "https://theacc.com/images/2018/11/30/ACCN_Launch.png",
+    logo: "https://theacc.com/images/2018/11/30/ACCN_Launch.png",
+    genres: ["Sports"],
+    streamUrl: "https://seu-servidor.com/live/acc-network.m3u8"
+  },
+  "cartoon-network": {
+    poster: "https://1000logos.net/wp-content/uploads/2016/10/Cartoon-Network-logo.jpg",
+    logo: "https://1000logos.net/wp-content/uploads/2016/10/Cartoon-Network-logo.jpg",
+    genres: ["Cartoons"],
+    streamUrl: "https://seu-servidor.com/live/cartoon-network.m3u8"
+  },
+  "espn": {
+    poster: "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fespn%2Fespn_logos%2Fespn_red.png",
+    logo: "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fespn%2Fespn_logos%2Fespn_red.png",
+    genres: ["Sports"],
+    streamUrl: "https://seu-servidor.com/live/espn.m3u8"
+  },
+  "the-weather-channel": {
+    poster: "https://i.ibb.co/bRJqL6WK/LWRBPBUMCVFA3-G5-Q4-ZH3-XJYDNY.avif",
+    logo: "https://i.ibb.co/bRJqL6WK/LWRBPBUMCVFA3-G5-Q4-ZH3-XJYDNY.avif",
+    genres: ["News/Politics"],
+    streamUrl: "https://seu-servidor.com/live/the-weather-channel.m3u8"
+  }
+};
+
+// 3. Lista completa de slugs dos canais
+const rawSlugs = [
   "abc", "acc-network", "ae-network", "amc", "animal-planet", "axs-tv",
   "bbc-america", "bbc-one-london", "bbc-two", "bein-sports", "bein-sports-francais-1",
   "bein-sports-francais-2", "bein-sports-francais-3", "big-ten-network", "boomerang",
@@ -42,40 +85,64 @@ const channelsData = [
   "sky-sport-24", "sky-sport-uno"
 ];
 
-function formatName(slug) {
-  return slug
-    .split("-")
-    .map((word) => word.toUpperCase())
-    .join(" ");
-}
+// 4. Mapeamento dinâmico de canais
+const channels = rawSlugs.map((slug) => {
+  const custom = customChannelMeta[slug] || {};
+  return {
+    id: `timst:${slug}`,
+    slug: slug,
+    type: "tv",
+    name: formatName(slug),
+    poster: custom.poster || null,
+    logo: custom.logo || null,
+    posterShape: "landscape",
+    genres: custom.genres || ["General"],
+    description: `Assistir ao canal ${formatName(slug)} em direto 24/7.`,
+    streamUrl: custom.streamUrl || null,
+    externalUrl: `https://timst.top/channel/${slug}`
+  };
+});
 
+// 5. Manifest do Addon
 const manifest = {
   id: "top.timst.livetv",
   version: "1.0.0",
   name: "LIVE TV (Timst)",
-  description: "24/7 access to top entertainment, sports, news, and cartoons.",
+  description: "Acesso 24/7 aos principais canais de entretenimento, desporto, notícias e desenhos animados.",
   resources: ["catalog", "meta", "stream"],
   types: ["tv"],
   catalogs: [
     {
       type: "tv",
       id: "timst_tv_catalog",
-      name: "LIVE TV"
+      name: "LIVE TV",
+      genres: ["Entertainment", "Sports", "Cartoons", "News/Politics", "General"]
     }
   ]
 };
 
 const builder = new addonBuilder(manifest);
 
-builder.defineCatalogHandler(({ type, id }) => {
+// 6. Handlers
+builder.defineCatalogHandler(({ type, id, extra }) => {
   if (type === "tv" && id === "timst_tv_catalog") {
-    const metas = channelsData.map((slug) => ({
-      id: `timst:${slug}`,
-      type: "tv",
-      name: formatName(slug),
-      posterShape: "landscape",
-      description: `Assistir ao canal ${formatName(slug)} em direto.`
+    let results = channels;
+
+    if (extra && extra.genre) {
+      results = channels.filter((item) => item.genres.includes(extra.genre));
+    }
+
+    const metas = results.map((item) => ({
+      id: item.id,
+      type: item.type,
+      name: item.name,
+      poster: item.poster,
+      logo: item.logo,
+      posterShape: item.posterShape,
+      description: item.description,
+      genres: item.genres
     }));
+
     return Promise.resolve({ metas });
   }
   return Promise.resolve({ metas: [] });
@@ -83,36 +150,50 @@ builder.defineCatalogHandler(({ type, id }) => {
 
 builder.defineMetaHandler(({ type, id }) => {
   if (type === "tv" && id.startsWith("timst:")) {
-    const slug = id.replace("timst:", "");
-    return Promise.resolve({
-      meta: {
-        id,
-        type: "tv",
-        name: formatName(slug),
-        description: `Emissão em direto de ${formatName(slug)}`
-      }
-    });
+    const channel = channels.find((item) => item.id === id);
+    if (channel) {
+      return Promise.resolve({
+        meta: {
+          id: channel.id,
+          type: channel.type,
+          name: channel.name,
+          poster: channel.poster,
+          logo: channel.logo,
+          description: channel.description,
+          genres: channel.genres
+        }
+      });
+    }
   }
   return Promise.resolve({ meta: null });
 });
 
 builder.defineStreamHandler(({ type, id }) => {
   if (type === "tv" && id.startsWith("timst:")) {
-    const slug = id.replace("timst:", "");
-    const externalUrl = `https://timst.top/channel/${slug}`;
+    const channel = channels.find((item) => item.id === id);
 
-    return Promise.resolve({
-      streams: [
-        {
-          title: "Abrir no Navegador / Web Stream",
-          externalUrl: externalUrl
-        }
-      ]
-    });
+    if (channel) {
+      const streams = [];
+
+      if (channel.streamUrl) {
+        streams.push({
+          title: "Stream Direto (HD)",
+          url: channel.streamUrl
+        });
+      }
+
+      streams.push({
+        title: "Abrir no Navegador / Web Stream",
+        externalUrl: channel.externalUrl
+      });
+
+      return Promise.resolve({ streams });
+    }
   }
   return Promise.resolve({ streams: [] });
 });
 
+// 7. Servidor Express com compatibilidade Serverless / Vercel
 const app = express();
 const addonInterface = builder.getInterface();
 const addonRouter = getRouter(addonInterface);
@@ -124,5 +205,13 @@ app.use((req, res, next) => {
 });
 
 app.use("/", addonRouter);
+
+// Permite execução local via `node index.js`, mas delega o roteamento para a Vercel em produção
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 7000;
+  app.listen(PORT, () => {
+    console.log(`Addon rodando em: http://127.0.0.1:${PORT}/manifest.json`);
+  });
+}
 
 module.exports = app;
