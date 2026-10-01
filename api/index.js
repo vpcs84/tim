@@ -252,7 +252,7 @@ const customChannelMeta = {
     genres: ["Sports"]
   },
   "fox-sports-2": {
-    logo: "https://images.seeklogo.com/logo-png/36/1/fox-sports-2-logo-png_seeklogo-369602.png",
+    logo: "https://banner2.cleanpng.com/20180815/qqr/kisspng-fox-sports-networks-television-channel-fox-sports-fox-sports-2-logo-png-online-5b74b3eb441a99.411812021534374891279.jpg",
     genres: ["Sports"]
   },
   "fox-sports-501-cricket": {
@@ -312,7 +312,7 @@ const customChannelMeta = {
     genres: ["Sports"]
   },
   "golf-channel": {
-    logo: "https://corporate.comcast.com/media/img/1000w/2020/01/corporate_golf-channel-16x9-social.jpg",
+    logo: "https://cdn.versantmedia.com/versantmedia/styles/newsroom/s3/2026-01/GC_Logo_STILL.png",
     genres: ["Sports"]
   },
   "hbo": {
@@ -324,7 +324,7 @@ const customChannelMeta = {
     genres: ["Entertainment"]
   },
   "hbo-drama": {
-    logo: "https://i.ibb.co/Qv2Mz3ZB/https-archive-images-prod-global-a201836-reutersmedia-net-2016-10-30-LYNXMPEC9-T08-O.avif",
+    logo: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/HBO_Drama_Logo.svg/1280px-HBO_Drama_Logo.svg.png",
     genres: ["Entertainment"]
   },
   "hbo-latino": {
