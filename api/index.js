@@ -324,7 +324,7 @@ const customChannelMeta = {
     genres: ["Entertainment"]
   },
   "hbo-drama": {
-    logo: "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/HBO_Drama_Logo.svg/1280px-HBO_Drama_Logo.svg.png",
+    logo: "https://static.wikia.nocookie.net/logopedia/images/b/b6/HBO_Drama_2025.svg",
     genres: ["Entertainment"]
   },
   "hbo-latino": {
@@ -332,7 +332,7 @@ const customChannelMeta = {
     genres: ["Entertainment"]
   },
   "hbo-movies": {
-    logo: "https://i.ibb.co/Qv2Mz3ZB/https-archive-images-prod-global-a201836-reutersmedia-net-2016-10-30-LYNXMPEC9-T08-O.avif",
+    logo: "https://theatricalindex.com/media_cache/media/companies/443/companylogo/logo.jpg",
     genres: ["Entertainment"]
   },
   "hgtv": {
@@ -344,7 +344,7 @@ const customChannelMeta = {
     genres: ["Sports"]
   },
   "motogp-channel": {
-    logo: "https://sportbikesincmag.com/wp-content/uploads/2024/11/New-MotoGP-Logo-sportbikesincmag.com-4.jpg",
+    logo: "https://cdn.motorsport.com/images/mgl/YMd9ENV2/s1100/motogp-logo.webp",
     genres: ["Sports"]
   },
   "movistar-deportes": {
