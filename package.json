@@ -1,7 +1,7 @@
 {
-  "name": "stremio-timst-live-tv",
+  "name": "stremio-livetv-addon",
   "version": "1.0.0",
-  "description": "Addon do Stremio para LIVE TV",
+  "description": "Addon de TV ao vivo para o Stremio na Vercel",
   "main": "api/index.js",
   "scripts": {
     "start": "node api/index.js"
@@ -9,5 +9,8 @@
   "dependencies": {
     "express": "^4.19.2",
     "stremio-addon-sdk": "^1.6.0"
+  },
+  "engines": {
+    "node": ">=18.x"
   }
 }
