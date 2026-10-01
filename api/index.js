@@ -13,13 +13,11 @@ function formatName(slug) {
 const customChannelMeta = {
   "abc": {
     logo: "https://cdn.abcotvs.com/dip/images/11479454_011822-cc-abc-generic-thumb-img.jpg",
-    genres: ["Entertainment"],
-    streamUrl: "https://seu-servidor.com/live/abc.m3u8"
+    genres: ["Entertainment"]
   },
   "acc-network": {
     logo: "https://theacc.com/images/2018/11/30/ACCN_Launch.png",
-    genres: ["Sports"],
-    streamUrl: "https://seu-servidor.com/live/acc-network.m3u8"
+    genres: ["Sports"]
   },
   "ae-network": {
     logo: "https://www.aetv.com/assets/images/aetv/generic-thumb.jpg",
@@ -115,8 +113,7 @@ const customChannelMeta = {
   },
   "cartoon-network": {
     logo: "https://1000logos.net/wp-content/uploads/2016/10/Cartoon-Network-logo.jpg",
-    genres: ["Cartoons"],
-    streamUrl: "https://seu-servidor.com/live/cartoon-network.m3u8"
+    genres: ["Cartoons"]
   },
   "cbeebies": {
     logo: "https://static.files.bbci.co.uk/core/website/assets/static/childrens-web/images/metadata/cbeebies-poster-1024x576.8eb27aa32e.png",
@@ -220,8 +217,7 @@ const customChannelMeta = {
   },
   "espn": {
     logo: "https://a1.espncdn.com/combiner/i?img=%2Fi%2Fespn%2Fespn_logos%2Fespn_red.png",
-    genres: ["Sports"],
-    streamUrl: "https://seu-servidor.com/live/espn.m3u8"
+    genres: ["Sports"]
   },
   "espn-deportes": {
     logo: "https://i.ibb.co/Y7zHmbbz/i.png",
@@ -644,9 +640,8 @@ const customChannelMeta = {
     genres: ["Sports"]
   },
   "the-weather-channel": {
-    logo: "https://i.ibb.co/bRJqL6WK/LWRBPBUMCVFA3-G5-Q4-ZH3-XJYDNY.avif",
-    genres: ["News/Politics"],
-    streamUrl: "https://seu-servidor.com/live/the-weather-channel.m3u8"
+    logo: "https://www.nj.com/resizer/v2/LWRBPBUMCVFA3G5Q4ZH3XJYDNY.jpg?auth=4a59ec67834efd4c8c6e3b11b7b78bca566531ab2663e818397b022b71ed1065&width=1280&smart=true&quality=90",
+    genres: ["News/Politics"]
   },
   "tnt": {
     logo: "https://i.ytimg.com/vi/F-AHKcxi3pY/maxresdefault.jpg",
@@ -773,7 +768,6 @@ const channels = rawSlugs.map((slug) => {
     posterShape: "landscape",
     genres: custom.genres || ["General"],
     description: `Assistir ao canal ${formatName(slug)} em direto 24/7.`,
-    streamUrl: custom.streamUrl || null,
     externalUrl: `https://timst.top/channel/${slug}`
   };
 });
@@ -848,21 +842,14 @@ builder.defineStreamHandler(({ type, id }) => {
     const channel = channels.find((item) => item.id === id);
 
     if (channel) {
-      const streams = [];
-
-      if (channel.streamUrl) {
-        streams.push({
-          title: "Stream Direto (HD)",
-          url: channel.streamUrl
-        });
-      }
-
-      streams.push({
-        title: "Abrir no Navegador / Web Stream",
-        externalUrl: channel.externalUrl
+      return Promise.resolve({
+        streams: [
+          {
+            title: "Abrir no Navegador / Web Stream",
+            externalUrl: channel.externalUrl
+          }
+        ]
       });
-
-      return Promise.resolve({ streams });
     }
   }
   return Promise.resolve({ streams: [] });
